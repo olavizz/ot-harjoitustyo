@@ -16,8 +16,9 @@ class HomeView:
         self._frame.destroy()
     
     def _increase_balance(self):
-        value = self._balance_entry.get()
-        self._balance_var.set(value)
+        value = self._balance_var.get()
+        increment = self._balance_entry.get()
+        self._balance_var.set(str(int(value) + int(increment)))
     
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
