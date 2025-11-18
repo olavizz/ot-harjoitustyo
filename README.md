@@ -2,7 +2,41 @@
 
 Toteutan *budjetointisovelluksen*, jossa käyttäjä voi hallita omaa **talouttaan** seuraamalla **tuloja** ja **menoja**.
 
-linkki laskarit hakemistoon: https://github.com/olavizz/ot-harjoitustyo/tree/main/laskarit
+## Asennus
+
+1. Asenna riippuvuudet komennolla
+
+```bash
+poetry install
+```
+
+2. Käynnistä sovellus komennolla
+
+```bash
+poetry run invoke start
+```
+
+## Komennot
+
+### Ohjelman suoritus
+
+```bash
+poetry run invoke start
+```
+
+### Testien suoritus
+
+```bash
+poetry run invoke tests
+```
+
+### Testi raportin generointi
+
+```bash
+poetry run invoke coverage-report
+```
+
+Raportti löytyy htmlcov hakemistosta
 
 # Vaatimusmäärittely
 
