@@ -8,6 +8,7 @@ class ExpensesService:
 
     def _add_expense(self, new_expense, new_expense_price):
         self._expenses_list.append((new_expense, new_expense_price))
+        self._expenses = str(int(self._expenses) + int(new_expense_price))
         print(self._expenses_list)
     
     def _get_expenses(self):

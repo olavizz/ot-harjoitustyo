@@ -58,6 +58,10 @@ class ExpensesView:
 
         expenses_service._add_expense(new_expense, new_expense_price)
 
+        expenses = expenses_service._get_expenses_amount()
+
+        self._expenses_var.set(expenses)
+
         self._show_expenses()
     
     def _show_expenses(self):
