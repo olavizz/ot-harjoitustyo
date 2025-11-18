@@ -6,3 +6,4 @@
 | 15.11 | 2       | Tkinteriin ja harjoitustyo ohjeisiintutustuminen |
 |16.11  | 2       | Tyon alustaminen ja rungon suunnittelua |
 |17.11  | 2       | Toiminnallisuutta ja refaktorointia  |
+|18.11  | 8       | UI:n tekoa, sovelluslogiikan tekoa, testaamista ja refaktorointia |
