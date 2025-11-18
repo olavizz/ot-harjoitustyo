@@ -20,6 +20,11 @@ class HomeView:
         increment = self._balance_entry.get()
         self._balance_var.set(str(int(value) + int(increment)))
     
+    def _decrease_balance(self):
+        value = self._balance_var.get()
+        decrement = self._balance_entry.get()
+        self._balance_var.set(str(int(value) - int(decrement)))
+    
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
 
@@ -35,6 +40,7 @@ class HomeView:
         balance_amount = ttk.Label(master=self._frame, textvariable=self._balance_var)
         expenses_amount = ttk.Label(master=self._frame, textvariable=self._expenses_var)
         increase_button = ttk.Button(master=self._frame, text="increase", command=self._increase_balance)
+        decrease_button = ttk.Button(master=self._frame, text="decrease", command=self._decrease_balance)
 
         balance.grid(row=0, column=0, sticky=constants.W, padx=10)
         balance_amount.grid(row=0, column=1, sticky=constants.W, padx=10)
@@ -42,6 +48,7 @@ class HomeView:
         expenses_amount.grid(row=1, column=1, sticky=constants.W, padx=10)
         self._balance_entry.grid(row=2, column=0)
         increase_button.grid(row=2, column=1)
+        decrease_button.grid(row=2, column=2)
 
     def dashboard(self):
         pass
