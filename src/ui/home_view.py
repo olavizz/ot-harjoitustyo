@@ -5,7 +5,7 @@ class HomeView:
         self._root = root
         self._balance_var = None
         self._expenses_var = None
-        self.expenses_list = []
+        self._expenses_list = []
         self._frame = None 
         self._service = HomeService()
 
@@ -24,9 +24,10 @@ class HomeView:
         self._create_widgets()
         self._layout_widgets()
 
+
         
     def _create_widgets(self):
-        self._frame = ttk.Frame(master=self._root)
+        self._expenses_view = ttk.Frame(master=self._frame)
 
         self._balance = ttk.Label(master=self._frame, text="balance", font=(20))
         self._expenses = ttk.Label(master=self._frame, text="expenses", font=(20))
@@ -67,6 +68,7 @@ class HomeView:
         self._expense_price.grid(row=5, column=0, sticky=constants.W, padx=10)
         self._expense_price_entry.grid(row=5, column=1, sticky=constants.W, padx=10)
         self._expense_entry_button.grid(row=6, column=1, sticky=constants.W, padx=10)
+
     
     def _increase_balance(self):
         value = self._balance_var.get()
@@ -74,20 +76,38 @@ class HomeView:
         new_balance = self._service.increase_balance(value, increment)
         self._balance_var.set(str(new_balance))
     
-    def _decrease_balance(self):
-        value = self._balance_var.get()
-        decrement = self._balance_entry.get()
-        new_balance = self._service.decrease_balance(value, decrement)
-        self._balance_var.set(str(new_balance))
-    
+    def _decrease_balance(self, subtraction=None):
+        value = int(self._balance_var.get())
+        decrement = int(self._balance_entry.get())
+
+        if subtraction == None:
+            new_balance = self._service.decrease_balance(value, decrement)
+            self._balance_var.set(str(new_balance))
+        else:
+            subtraction = int(subtraction)
+            new_balance = self._service.decrease_balance(value, subtraction)
+            self._balance_var.set(str(new_balance))
+
     def _add_expense(self):
         new_expense = self._expense_ps_entry.get()
         new_expense_price = self._expense_price_entry.get()
-        self.expenses_list.append((new_expense, new_expense_price))
+        self._expenses_list.append((new_expense, new_expense_price))
+        print(self._expenses_list)
+
+        self._decrease_balance(new_expense_price)
+
+        self._show_expenses()
     
     def _show_expenses(self):
-        pass
+        for i, name in enumerate(self.expenses_list):
 
+            product = ttk.Label(master=self._expenses_view, text=name[0], font=(20))
+            product.grid(row=i, column=0, sticky=constants.W, padx=10, pady=5)
+
+            price = ttk.Label(master=self._expenses_view, text=name[1], font=(20))
+            price.grid(row=i, column=1, sticky=constants.W, padx=10, pady=5)
+
+        self._expenses_view.grid(row=7, column=0, sticky=constants.W, padx=10)
 
 class HomeService:
     
