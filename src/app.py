@@ -1,4 +1,4 @@
-from tkinter import Tk, ttk, constants, StringVar
+from tkinter import Tk, constants
 from ui.balance_view import BalanceView
 from ui.expenses_view import ExpensesView
 

@@ -1,4 +1,3 @@
-from services.balance_service import balance_service
 
 class ExpensesService:
 
@@ -10,10 +9,10 @@ class ExpensesService:
         self._expenses_list.append((new_expense, new_expense_price))
         self._expenses = str(int(self._expenses) + int(new_expense_price))
         print(self._expenses_list)
-    
+
     def _get_expenses(self):
         return self._expenses_list
-    
+
     def _get_expenses_amount(self):
         return self._expenses
 
