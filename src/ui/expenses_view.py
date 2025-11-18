@@ -14,15 +14,25 @@ class ExpensesView:
 
     def destroy(self):
         self._frame.destroy()
+    
+    def _init_variables(self):
+        expenses = expenses_service._get_expenses_amount()
+
+        self._expenses_var = StringVar()
+        self._expenses_var.set(expenses)
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
 
+        self._init_variables()
         self._create_widgets()
         self._layout_widgets()
     
     def _create_widgets(self):
         self._expenses_view = ttk.Frame(master=self._frame)
+
+        self._expenses = ttk.Label(master=self._frame, text="expenses", font=(20))
+        self._expenses_amount = ttk.Label(master=self._frame, textvariable=self._expenses_var)
 
         self._new_expense = ttk.Label(master=self._frame, text="Add a new expense", font=(30))
         self._expense_name = ttk.Label(master=self._frame, text="product or servide,", font=(20))
@@ -33,6 +43,8 @@ class ExpensesView:
         self._new_expense_amount = ttk.Entry(master=self._frame)
     
     def _layout_widgets(self):
+        self._expenses.grid(row=1, column=0, sticky=constants.W, padx=10)
+        self._expenses_amount.grid(row=1, column=1, sticky=constants.W, padx=10)
         self._new_expense.grid(row=3, column=0, sticky=constants.W, padx=10, pady=10)
         self._expense_name.grid(row=4, column=0, sticky=constants.W, padx=10, pady=10)
         self._expense_ps_entry.grid(row=4, column=1, sticky=constants.W, padx=10 ,pady=10)
