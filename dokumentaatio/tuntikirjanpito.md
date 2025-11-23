@@ -7,3 +7,4 @@
 |16.11  | 2       | Tyon alustaminen ja rungon suunnittelua |
 |17.11  | 2       | Toiminnallisuutta ja refaktorointia  |
 |18.11  | 8       | UI:n tekoa, sovelluslogiikan tekoa, testaamista ja refaktorointia |
+|23.11  | 1       | Toiminnallisuutta ja refaktorointia |
