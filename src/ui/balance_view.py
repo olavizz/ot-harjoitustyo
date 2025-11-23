@@ -7,6 +7,11 @@ class BalanceView:
         self._balance_var = None
         self._total_earnings_var = None
         self._frame = None
+        self._balance_service = balance_service
+        self._balance_var = StringVar()
+        self._total_earnings_var = StringVar()
+        
+        self._balance_service.attach_vars(self._balance_var)
 
         self._initialize()
 
@@ -35,8 +40,6 @@ class BalanceView:
     def _init_variables(self):
         balance = balance_service._get_balance()
         total_earnings = balance_service._get_earnings()
-        self._balance_var = StringVar()
-        self._total_earnings_var = StringVar()
         self._balance_var.set(balance)
         self._total_earnings_var.set(total_earnings)
 
