@@ -1,4 +1,5 @@
 from tkinter import ttk, constants, StringVar
+from services.login_service import login_service
 
 class LoginView:
     def __init__(self, root, login_successful):
@@ -25,10 +26,21 @@ class LoginView:
         self._username_entry.grid(row=1, column=1, sticky=constants.W, padx=10, pady=10)
         self._password.grid(row=2, column=0, sticky=constants.W, padx=10, pady=10)
         self._password_entry.grid(row=2, column=1, sticky=constants.W, padx=10, pady=10)
+        self._login_button.grid(row=3, column=0, sticky=constants.W)
 
     def _check_user(self):
-        pass
-    
+        username = self._username_entry.get()
+        password = self._password_entry.get()
+        print(type(username))
+
+        if login_service._check_user(username, password):
+            self._login_successful()
+        else:
+            self._show_error("Invalid username or password")
+
+    def _show_error(self, message):
+        ttk.Label(self._frame, text=message).grid(row=4, column=0)
+
     def show(self):
         self._frame.grid(row=0, column=0, sticky=constants.W)
 
