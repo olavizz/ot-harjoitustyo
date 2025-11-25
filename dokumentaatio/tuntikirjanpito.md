@@ -10,3 +10,5 @@
 |23.11  | 1       | Toiminnallisuutta ja refaktorointia |
 |24.11  | 2       | Suunnittelua ja sisäänkirjautumistoiminnon tekoa |
 |25.11  | 4       | Toiminnallisuutta, refaktorointia |
+|       | 1       | Testaus, linttaus |
+| yht.  | 24      |
