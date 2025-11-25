@@ -30,7 +30,7 @@ class ExpensesView:
         self._expenses = ttk.Label(master=self._frame, text="expenses", font=(20))
         self._expenses_amount = ttk.Label(master=self._frame, textvariable=self._expenses_var)
         self._new_expense = ttk.Label(master=self._frame, text="Add a new expense", font=(30))
-        self._expense_name = ttk.Label(master=self._frame, text="product or servide,", font=(20))
+        self._expense_name = ttk.Label(master=self._frame, text="product or service", font=(20))
         self._expense_price = ttk.Label(master=self._frame, text="price €", font=(20))
         self._expense_ps_entry = ttk.Entry(master=self._frame)
         self._expense_price_entry = ttk.Entry(master=self._frame)

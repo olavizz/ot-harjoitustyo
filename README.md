@@ -51,7 +51,8 @@ Sovelluksella on aluksi vain normaalikäyttäjiä, myöhemmin saatetaan lisätä
 ## Toiminnallisuus
 
     • Käyttäjä voi rekisteröityä
-    • Käyttäjä voi kirjautua sisään ja ulos
+    • Käyttäjä voi kirjautua sisään
+    - Käyttäjä voi kirjautua ulos
     • Käyttäjä voi lisätä omia tuloja ja menoja
     • Käyttäjä voi muokata ja poistaa itse lisäämiään tapahtumia
     • Sovellus luokittelee menot eri kategorioihin
