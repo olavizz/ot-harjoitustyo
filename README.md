@@ -2,7 +2,7 @@
 
 Toteutan *budjetointisovelluksen*, jossa käyttäjä voi hallita omaa **talouttaan** seuraamalla **tuloja** ja **menoja**.
 
-## Käyttäjä
+## HUOMIO
 
 - Tällä hetkellä sovelluksen käyttö onnistuu vain yhdellä käyttäjällä:
 - username: pekka
