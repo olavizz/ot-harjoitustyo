@@ -2,6 +2,12 @@
 
 Toteutan *budjetointisovelluksen*, jossa käyttäjä voi hallita omaa **talouttaan** seuraamalla **tuloja** ja **menoja**.
 
+## Käyttäjä
+
+- Tällä hetkellä sovelluksen käyttö onnistuu vain yhdellä käyttäjällä:
+- username: pekka
+- password: 123456
+
 ## Asennus
 
 1. Asenna riippuvuudet komennolla

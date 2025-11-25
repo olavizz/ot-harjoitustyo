@@ -19,7 +19,10 @@ class BalanceService:
     def decrease_balance(self, decrement):
         value = int(self._balance)
         self._balance = str(value - int(decrement))
-        self._balance_var.set(str(self._balance))
+
+        if self._balance_var:
+            self._balance_var.set(str(self._balance))
+
         return self._balance
 
     def _get_balance(self):

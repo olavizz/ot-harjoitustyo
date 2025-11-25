@@ -9,7 +9,6 @@ class UI:
         self._home_view = BalanceView(self._root)
         self._expenses_view = ExpensesView(self._root)
         self._login_view = LoginView(self._root, self.show_homepage_view)
-
         self._current_view = None
 
     def start(self):
@@ -26,7 +25,7 @@ class UI:
         self._current_view.hide()
         self._home_view._frame.grid(row=0, column=0, sticky=constants.W, padx=10, pady=10)
         self._expenses_view._frame.grid(row=1, column=0, sticky=constants.W, padx=10, pady=10)
-    
+
     def show(self):
         self._frame.grid(row=0, column=0, sticky=constants.W)
 
