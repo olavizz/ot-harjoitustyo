@@ -45,6 +45,7 @@ class UI:
         self._change_view(self._register_view)
 
 
+
 window = Tk()
 window.title("Budget app")
 
