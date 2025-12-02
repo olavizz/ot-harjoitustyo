@@ -2,10 +2,11 @@ from tkinter import ttk, constants, StringVar
 from services.login_service import login_service
 
 class LoginView:
-    def __init__(self, root, login_successful):
+    def __init__(self, root, login_successful, register_user):
         self._root = root
     
         self._login_successful = login_successful
+        self._register = register_user
 
         self._frame = ttk.Frame(root)
         self._create_widgets()
@@ -19,6 +20,7 @@ class LoginView:
         self._password_entry = ttk.Entry(self._frame)
 
         self._login_button = ttk.Button(self._frame, text="Login", command=self._check_user)
+        self._register_button = ttk.Button(self._frame, text="Register", command=self._register)
 
     def _layout_widgets(self):
         self._headline.grid(row=0, column=0, sticky=constants.W, padx=10, pady=10)
@@ -27,6 +29,7 @@ class LoginView:
         self._password.grid(row=2, column=0, sticky=constants.W, padx=10, pady=10)
         self._password_entry.grid(row=2, column=1, sticky=constants.W, padx=10, pady=10)
         self._login_button.grid(row=3, column=0, sticky=constants.W)
+        self._register_button.grid(row=3, column=3, sticky=constants.W)
 
     def _check_user(self):
         username = self._username_entry.get()
