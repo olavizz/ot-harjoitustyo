@@ -1,16 +1,19 @@
-from tkinter import ttk, constants, StringVar
+from tkinter import StringVar, constants, ttk
+
 from services.balance_service import balance_service
 
+
 class BalanceView:
-    def __init__(self, root):
+    def __init__(self, root, login_page):
         self._root = root
         self._balance_var = None
         self._total_earnings_var = None
         self._frame = None
+        self.login_page = login_page
         self._balance_service = balance_service
         self._balance_var = StringVar()
         self._total_earnings_var = StringVar()
-        
+
         self._balance_service.attach_vars(self._balance_var)
 
         self._initialize()
@@ -29,13 +32,26 @@ class BalanceView:
         self._layout_widgets()
 
     def _create_widgets(self):
-        self._total_earnings = ttk.Label(master=self._frame, text="total earnings", font=(20))
-        self._total_earnings_amount = ttk.Label(master=self._frame, textvariable=self._total_earnings_var)
+        self._total_earnings = ttk.Label(
+            master=self._frame, text="total earnings", font=(20)
+        )
+        self._total_earnings_amount = ttk.Label(
+            master=self._frame, textvariable=self._total_earnings_var
+        )
         self._balance = ttk.Label(master=self._frame, text="balance", font=(20))
         self._balance_entry = ttk.Entry(master=self._frame)
-        self._balance_amount = ttk.Label(master=self._frame, textvariable=self._balance_var)
-        self._increase_button = ttk.Button(master=self._frame, text="increase", command=self._increase_balance)
-        self._decrease_button = ttk.Button(master=self._frame, text="decrease", command=self._decrease_balance)
+        self._balance_amount = ttk.Label(
+            master=self._frame, textvariable=self._balance_var
+        )
+        self._increase_button = ttk.Button(
+            master=self._frame, text="increase", command=self._increase_balance
+        )
+        self._decrease_button = ttk.Button(
+            master=self._frame, text="decrease", command=self._decrease_balance
+        )
+        self._log_out_button = ttk.Button(
+            master=self._frame, text="logout", command=self._log_out
+        )
 
     def _init_variables(self):
         balance = balance_service._get_balance()
@@ -51,6 +67,7 @@ class BalanceView:
         self._balance_entry.grid(row=2, column=0)
         self._increase_button.grid(row=2, column=1)
         self._decrease_button.grid(row=2, column=2)
+        self._log_out_button.grid(row=0, column=3)
 
     def _increase_balance(self):
         increment = self._balance_entry.get()
@@ -68,3 +85,9 @@ class BalanceView:
             subtraction = int(subtraction)
             new_balance = balance_service.decrease_balance(subtraction)
             self._balance_var.set(str(new_balance))
+
+    def _log_out(self):
+        self.login_page()
+
+    def hide(self):
+        self._frame.grid_remove()

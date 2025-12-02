@@ -1,5 +1,7 @@
-from tkinter import ttk, constants, StringVar
+from tkinter import StringVar, constants, ttk
+
 from services.expenses_service import expenses_service
+
 
 class ExpensesView:
     def __init__(self, root):
@@ -28,13 +30,21 @@ class ExpensesView:
     def _create_widgets(self):
         self._expenses_view = ttk.Frame(master=self._frame)
         self._expenses = ttk.Label(master=self._frame, text="expenses", font=(20))
-        self._expenses_amount = ttk.Label(master=self._frame, textvariable=self._expenses_var)
-        self._new_expense = ttk.Label(master=self._frame, text="Add a new expense", font=(30))
-        self._expense_name = ttk.Label(master=self._frame, text="product or service", font=(20))
+        self._expenses_amount = ttk.Label(
+            master=self._frame, textvariable=self._expenses_var
+        )
+        self._new_expense = ttk.Label(
+            master=self._frame, text="Add a new expense", font=(30)
+        )
+        self._expense_name = ttk.Label(
+            master=self._frame, text="product or service", font=(20)
+        )
         self._expense_price = ttk.Label(master=self._frame, text="price €", font=(20))
         self._expense_ps_entry = ttk.Entry(master=self._frame)
         self._expense_price_entry = ttk.Entry(master=self._frame)
-        self._expense_entry_button = ttk.Button(master=self._frame, text="Enter", command=self._add_expense)
+        self._expense_entry_button = ttk.Button(
+            master=self._frame, text="Enter", command=self._add_expense
+        )
         self._new_expense_amount = ttk.Entry(master=self._frame)
 
     def _layout_widgets(self):
@@ -42,7 +52,9 @@ class ExpensesView:
         self._expenses_amount.grid(row=1, column=1, sticky=constants.W, padx=10)
         self._new_expense.grid(row=3, column=0, sticky=constants.W, padx=10, pady=10)
         self._expense_name.grid(row=4, column=0, sticky=constants.W, padx=10, pady=10)
-        self._expense_ps_entry.grid(row=4, column=1, sticky=constants.W, padx=10 ,pady=10)
+        self._expense_ps_entry.grid(
+            row=4, column=1, sticky=constants.W, padx=10, pady=10
+        )
         self._expense_price.grid(row=5, column=0, sticky=constants.W, padx=10)
         self._expense_price_entry.grid(row=5, column=1, sticky=constants.W, padx=10)
         self._expense_entry_button.grid(row=6, column=1, sticky=constants.W, padx=10)
@@ -64,3 +76,6 @@ class ExpensesView:
             price.grid(row=i, column=1, sticky=constants.W, padx=10, pady=5)
 
         self._expenses_view.grid(row=7, column=0, sticky=constants.W, padx=10)
+
+    def hide(self):
+        self._frame.grid_remove()
