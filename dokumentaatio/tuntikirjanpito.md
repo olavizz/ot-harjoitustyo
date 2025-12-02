@@ -11,4 +11,5 @@
 |24.11  | 2       | Suunnittelua ja sisäänkirjautumistoiminnon tekoa |
 |25.11  | 4       | Toiminnallisuutta, refaktorointia |
 |       | 1       | Testaus, linttaus |
-| yht.  | 24      |
+|2.12   | 3       | Tietokannan yhdistäminen, toiminnallisuutta |
+| yht.  | 27      |
