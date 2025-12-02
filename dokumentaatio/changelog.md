@@ -9,5 +9,8 @@
 - Lisätty ExpensesService-luokka, joka hoitaa sovelluslogiikkaa
 - Testattu, että BalanceService-luokka lisää saldoa oikein
 - Lisätty LoginVew-luokka, joka näyttää sisäänkirjautumis sivun
-- Lisätty LoginService-luokka, joka käsittelee käyttäjän sisäänkirjautumisen. Tällä hetkellä toimii vain yhdellä käyttäjällä (username: pekka, password: 123456)
+- Lisätty LoginService-luokka, joka käsittelee käyttäjän sisäänkirjautumisen.
 - Testattu melkein kokonaan kaikkien luokkien toiminnallisuutta
+- Käyttäjä pystyy rekisteröitymään ja tiedot tallentuvat tietokantaan
+- Käyttäjä pystyy kirjautumaan sisään rekisteröidyllä käyttäjällä
+- Käyttäjä pystyy kirjautumaan ulos
