@@ -2,12 +2,6 @@
 
 Toteutan *budjetointisovelluksen*, jossa käyttäjä voi hallita omaa **talouttaan** seuraamalla **tuloja** ja **menoja**.
 
-## HUOMIO
-
-- Tällä hetkellä sovelluksen käyttö onnistuu vain yhdellä käyttäjällä:
-- username: pekka
-- password: 123456
-
 ## Asennus
 
 1. Asenna riippuvuudet komennolla
@@ -23,6 +17,12 @@ poetry run invoke start
 ```
 
 ## Komennot
+
+### Tietokannan alustus
+
+```bash
+python3 src/db_helper.py
+```
 
 ### Ohjelman suoritus
 
