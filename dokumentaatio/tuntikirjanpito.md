@@ -12,4 +12,6 @@
 |25.11  | 4       | Toiminnallisuutta, refaktorointia |
 |       | 1       | Testaus, linttaus |
 |2.12   | 3       | Tietokannan yhdistäminen, toiminnallisuutta |
-| yht.  | 27      |
+|9.12   | 6       | Tietokannan yhdistämistä, refaktorointia |
+|       | 1       | Testaamista |
+| yht.  | 34      |
