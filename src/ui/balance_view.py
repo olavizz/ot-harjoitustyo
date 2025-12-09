@@ -1,5 +1,7 @@
 from tkinter import StringVar, constants, ttk
 
+from services.balance_service import balance_service
+
 
 class BalanceView:
     def __init__(self, root, login_page):
@@ -13,7 +15,7 @@ class BalanceView:
         self._balance_var = StringVar()
         self._total_earnings_var = StringVar()
 
-        self._balance_service.attach_vars(self._balance_var)
+        self._balance_service.attach_vars(self._balance_var, self._total_earnings_var)
 
         self._initialize()
 
@@ -57,7 +59,7 @@ class BalanceView:
 
     def _init_variables(self):
         balance = balance_service._get_balance(self._user_id)
-        total_earnings = balance_service._get_earnings()
+        total_earnings = balance_service._get_earnings(self._user_id)
         self._balance_var.set(balance)
         self._total_earnings_var.set(total_earnings)
 

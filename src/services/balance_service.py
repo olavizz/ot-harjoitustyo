@@ -15,19 +15,22 @@ class BalanceService:
         self._balance_var = 0
         self._total_earnings = 0
 
-    def attach_vars(self, balance_var):
+    def attach_vars(self, balance_var, total_earnings_var):
         self._balance_var = balance_var
+        self._total_earnings_var = total_earnings_var
 
     def increase_balance(self, increment, user_id):
         value = int(self._get_balance(user_id))
         self._balance = str(value + int(increment))
+        total_earnings = self._get_earnings(user_id) + int(increment)
 
         conn = get_connection()
         cursor = conn.cursor()
+
         try:
             cursor.execute(
-                "UPDATE balances SET balance = ? WHERE user_id = ?",
-                (self._balance, user_id),
+                "UPDATE balances SET balance = ?, total_earnings = ? WHERE user_id = ?",
+                (self._balance, total_earnings, user_id),
             )
 
         except:
@@ -87,8 +90,29 @@ class BalanceService:
         if self._balance_var:
             self._balance_var.set(str(self._balance))
 
-    def _get_earnings(self):
-        return self._total_earnings
+        if self._total_earnings:
+            self._total_earnings_var.set(str(self._total_earnings))
+
+    def _get_earnings(self, user_id):
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute(
+                "SELECT total_earnings FROM balances WHERE user_id = ?", (user_id,)
+            )
+            row = cursor.fetchone()
+            print(row, "this is total earnings in get earnings function")
+
+        except:
+            print("Error fetching total earnings")
+            row = None
+
+        conn.commit()
+        conn.close()
+        if row is None:
+            return 0
+        return int(row[0])
 
 
 balance_service = BalanceService()
