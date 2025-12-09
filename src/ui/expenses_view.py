@@ -6,6 +6,7 @@ from services.expenses_service import expenses_service
 class ExpensesView:
     def __init__(self, root):
         self._root = root
+        self._user_id = None
         self._expenses_var = None
         self._frame = None
         self._initialize()
@@ -15,6 +16,9 @@ class ExpensesView:
 
     def destroy(self):
         self._frame.destroy()
+
+    def set_user_id(self, user_id):
+        self._user_id = user_id
 
     def _init_variables(self):
         expenses = expenses_service._get_expenses_amount()

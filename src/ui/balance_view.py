@@ -6,6 +6,7 @@ from services.balance_service import balance_service
 class BalanceView:
     def __init__(self, root, login_page):
         self._root = root
+        self._user_id = None
         self._balance_var = None
         self._total_earnings_var = None
         self._frame = None
@@ -23,6 +24,9 @@ class BalanceView:
 
     def destroy(self):
         self._frame.destroy()
+
+    def set_user_id(self, user_id):
+        self._user_id = user_id
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
@@ -54,7 +58,7 @@ class BalanceView:
         )
 
     def _init_variables(self):
-        balance = balance_service._get_balance()
+        balance = balance_service._get_balance(self._user_id)
         total_earnings = balance_service._get_earnings()
         self._balance_var.set(balance)
         self._total_earnings_var.set(total_earnings)
@@ -71,20 +75,26 @@ class BalanceView:
 
     def _increase_balance(self):
         increment = self._balance_entry.get()
-        new_balance = balance_service.increase_balance(increment)
-        self._balance_var.set(str(new_balance[0]))
+        new_balance = balance_service.increase_balance(increment, self._user_id)
+        self._balance_var.set(str(balance_service._get_balance(self._user_id)))
         self._total_earnings_var.set(str(new_balance[1]))
 
     def _decrease_balance(self, subtraction=None):
         decrement = int(self._balance_entry.get())
 
         if subtraction == None:
-            new_balance = balance_service.decrease_balance(decrement)
+            new_balance = balance_service.decrease_balance(decrement, self._user_id)
             self._balance_var.set(str(new_balance))
         else:
             subtraction = int(subtraction)
-            new_balance = balance_service.decrease_balance(subtraction)
+            new_balance = balance_service.decrease_balance(subtraction, self._user_id)
             self._balance_var.set(str(new_balance))
+
+    def init_user(self, user_id):
+        self._balance = balance_service._get_balance(user_id)
+
+        if self._balance_var:
+            self._balance_var.set(str(self._balance))
 
     def _log_out(self):
         self.login_page()

@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS balances (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     balance REAL NOT NULL DEFAULT 0,
+    total_earnings REAL NOT NULL DEFAULT 0,
     FOREIGN KEY(user_id) REFERENCES users(id)
 )
 """)

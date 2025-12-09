@@ -1,10 +1,13 @@
-from tkinter import ttk, constants, StringVar
+from tkinter import StringVar, constants, ttk
+
+from services.balance_service import balance_service
 from services.login_service import login_service
+
 
 class LoginView:
     def __init__(self, root, login_successful, register_user):
         self._root = root
-    
+
         self._login_successful = login_successful
         self._register = register_user
 
@@ -13,14 +16,20 @@ class LoginView:
         self._layout_widgets()
 
     def _create_widgets(self):
-        self._headline = ttk.Label(self._frame, text="Give username and password to login")
+        self._headline = ttk.Label(
+            self._frame, text="Give username and password to login"
+        )
         self._username = ttk.Label(self._frame, text="Username")
         self._password = ttk.Label(self._frame, text="Password")
         self._username_entry = ttk.Entry(self._frame)
         self._password_entry = ttk.Entry(self._frame)
 
-        self._login_button = ttk.Button(self._frame, text="Login", command=self._check_user)
-        self._register_button = ttk.Button(self._frame, text="Register", command=self._register)
+        self._login_button = ttk.Button(
+            self._frame, text="Login", command=self._check_user
+        )
+        self._register_button = ttk.Button(
+            self._frame, text="Register", command=self._register
+        )
 
     def _layout_widgets(self):
         self._headline.grid(row=0, column=0, sticky=constants.W, padx=10, pady=10)
@@ -37,7 +46,9 @@ class LoginView:
         print(type(username))
 
         if login_service._check_user(username, password):
-            self._login_successful()
+            self._user_log_in_id = login_service.get_login_user_id(username, password)
+            balance_service.init_user(self._user_log_in_id)
+            self._login_successful(self._user_log_in_id)
         else:
             self._show_error("Invalid username or password")
 

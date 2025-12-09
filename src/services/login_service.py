@@ -12,6 +12,22 @@ class LoginService:
         self._username = "pekka"
         self._password = "123456"
     
+    def get_login_user_id(self, username, password):
+        conn = get_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                "SELECT * FROM users WHERE username = ? AND password = ?",
+                (username, password)
+            )
+            user = cursor.fetchone()
+            print(user)
+            print("User found")
+        except sqlite3.Error as e:
+            print("User not found")
+        conn.close()
+        return user[0]
+    
     def _check_user(self, username, password):
         conn = get_connection()
         cursor = conn.cursor()
