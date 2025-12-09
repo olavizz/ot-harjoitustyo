@@ -8,6 +8,7 @@ class ExpensesView:
         self._root = root
         self._user_id = None
         self._expenses_var = None
+        self._expenses_var = StringVar()
         self._frame = None
         self._initialize()
 
@@ -19,6 +20,9 @@ class ExpensesView:
 
     def set_user_id(self, user_id):
         self._user_id = user_id
+
+    def init_user(self, user_id):
+        self._show_expenses()
 
     def _init_variables(self):
         expenses = expenses_service._get_expenses_amount()
@@ -66,13 +70,13 @@ class ExpensesView:
     def _add_expense(self):
         new_expense = self._expense_ps_entry.get()
         new_expense_price = self._expense_price_entry.get()
-        expenses_service._add_expense(new_expense, new_expense_price)
+        expenses_service._add_expense(new_expense, new_expense_price, self._user_id)
         expenses = expenses_service._get_expenses_amount()
         self._expenses_var.set(expenses)
         self._show_expenses()
 
     def _show_expenses(self):
-        expenses_list = expenses_service._get_expenses()
+        expenses_list = expenses_service._get_expenses(self._user_id)
         for i, name in enumerate(expenses_list):
             product = ttk.Label(master=self._expenses_view, text=name[0], font=(20))
             product.grid(row=i, column=0, sticky=constants.W, padx=10, pady=5)

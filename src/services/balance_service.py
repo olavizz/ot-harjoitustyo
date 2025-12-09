@@ -86,6 +86,7 @@ class BalanceService:
 
     def init_user(self, user_id):
         self._balance = self._get_balance(user_id)
+        self._total_earnings = self._get_earnings(user_id)
 
         if self._balance_var:
             self._balance_var.set(str(self._balance))
@@ -112,6 +113,7 @@ class BalanceService:
         conn.close()
         if row is None:
             return 0
+        print(row, "This is get earnings row")
         return int(row[0])
 
 

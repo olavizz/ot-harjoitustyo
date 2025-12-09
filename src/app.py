@@ -10,20 +10,30 @@ class UI:
     def __init__(self, root):
         self._root = root
         self._logged_in_user_id = None
+        self._create_views()
+        self._current_view_list = []
+
+    def _create_views(self):
         self._register_view = RegisterView(self._root, self.start)
         self._home_view = BalanceView(self._root, self.start)
         self._expenses_view = ExpensesView(self._root)
-        self._login_view = LoginView(self._root, self.show_homepage_view, self._show_register_view)
-        self._current_view_list = []
 
     def start(self):
+        self._login_view = LoginView(
+            self._root, self.show_homepage_view, self._show_register_view
+        )
         self._logged_in_user_id = None
+        self._home_view.set_user_id(None)
+        self._expenses_view.set_user_id(None)
         self._change_view(self._login_view)
+
+        self._home_view = BalanceView(self._root, self.start)
+        self._expenses_view = ExpensesView(self._root)
 
     def _change_view(self, new_view):
         if self._current_view_list:
             for i in self._current_view_list:
-                i.hide()
+                i.destroy()
 
         self._current_view_list = [new_view]
 
@@ -34,7 +44,8 @@ class UI:
         self._logged_in_user_id = login_id
         self._home_view.set_user_id(login_id)
         self._expenses_view.set_user_id(login_id)
-        
+        self._expenses_view._show_expenses()
+
         for i in self._current_view_list:
             i.hide()
         self._home_view._frame.grid(
@@ -45,10 +56,9 @@ class UI:
         )
 
         self._current_view_list = [self._home_view, self._expenses_view]
-    
+
     def _show_register_view(self):
         self._change_view(self._register_view)
-
 
 
 window = Tk()

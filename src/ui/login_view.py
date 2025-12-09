@@ -1,6 +1,7 @@
 from tkinter import StringVar, constants, ttk
 
 from services.balance_service import balance_service
+from services.expenses_service import expenses_service
 from services.login_service import login_service
 
 
@@ -60,3 +61,6 @@ class LoginView:
 
     def hide(self):
         self._frame.grid_remove()
+
+    def destroy(self):
+        self._frame.destroy()
