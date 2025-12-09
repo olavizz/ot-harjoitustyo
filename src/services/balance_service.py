@@ -17,7 +17,6 @@ class BalanceService:
 
     def attach_vars(self, balance_var):
         self._balance_var = balance_var
-        self._balance_var.set(str(self._balance))
 
     def increase_balance(self, increment, user_id):
         value = int(self._get_balance(user_id))
@@ -42,10 +41,24 @@ class BalanceService:
 
     def decrease_balance(self, decrement, user_id):
         value = int(self._get_balance(user_id))
+        print(value, "This is value in decrease balance")
         self._balance = str(value - int(decrement))
 
-        if self._balance_var:
-            self._balance_var.set(str(self._balance))
+        conn = get_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                "UPDATE balances SET balance = ? WHERE user_id = ?",
+                (self._balance, user_id),
+            )
+            print("decrease function works")
+        except:
+            print("Error in updating balance")
+
+        conn.commit()
+        conn.close()
+
+        self._balance_var.set(self._balance)
 
         return self._balance
 
@@ -65,7 +78,7 @@ class BalanceService:
 
         if row is None:
             return 0
-
+        print(int(row[0]), "This is int(row[0]) in get balance function")
         return int(row[0])
 
     def init_user(self, user_id):

@@ -1,7 +1,5 @@
 from tkinter import StringVar, constants, ttk
 
-from services.balance_service import balance_service
-
 
 class BalanceView:
     def __init__(self, root, login_page):
@@ -79,16 +77,13 @@ class BalanceView:
         self._balance_var.set(str(balance_service._get_balance(self._user_id)))
         self._total_earnings_var.set(str(new_balance[1]))
 
-    def _decrease_balance(self, subtraction=None):
+    def _decrease_balance(self, subtraction=0):
         decrement = int(self._balance_entry.get())
 
-        if subtraction == None:
-            new_balance = balance_service.decrease_balance(decrement, self._user_id)
-            self._balance_var.set(str(new_balance))
-        else:
-            subtraction = int(subtraction)
-            new_balance = balance_service.decrease_balance(subtraction, self._user_id)
-            self._balance_var.set(str(new_balance))
+        subtraction = int(subtraction)
+        print("this is the subtraction", subtraction)
+        balance_service.decrease_balance(decrement, self._user_id)
+        self._balance_var.set(str(balance_service._get_balance(self._user_id)))
 
     def init_user(self, user_id):
         self._balance = balance_service._get_balance(user_id)
