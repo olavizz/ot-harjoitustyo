@@ -61,7 +61,7 @@ class BalanceService:
         conn.commit()
         conn.close()
 
-        self._balance_var.set(self._balance)
+        # self._balance_var.set(self._balance)
 
         return self._balance
 

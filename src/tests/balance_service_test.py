@@ -22,9 +22,9 @@ class TestBalanceService(unittest.TestCase):
     def setUp(self):
         self.conn = get_connection()
         self.cursor = self.conn.cursor()
-        self.cursor.execute("DELETE FROM balances WHERE user_id = ?", (test_user_id,))
-        self.cursor.execute("DELETE FROM users WHERE id = ?", (test_user_id,))
-        self.cursor.execute("DELETE FROM expenses WHERE user_id = ?", (test_user_id,))
+        self.cursor.execute("DELETE FROM expenses")
+        self.cursor.execute("DELETE FROM balances")
+        self.cursor.execute("DELETE FROM users")
 
         try:
             self.cursor.execute(
