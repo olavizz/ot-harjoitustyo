@@ -25,9 +25,9 @@ cursor.execute("""
 CREATE TABLE IF NOT EXISTS expenses (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
-    amount REAL NOT NULL,
+    amount REAL NOT NULL DEFAULT 0,
     description TEXT,
-    date TEXT NOT NULL,
+    date TEXT,
     FOREIGN KEY(user_id) REFERENCES users(id)
 )
 """)
