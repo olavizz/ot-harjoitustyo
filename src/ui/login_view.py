@@ -1,16 +1,15 @@
 from tkinter import StringVar, constants, ttk
 
-from services.balance_service import balance_service
-from services.expenses_service import expenses_service
 from services.login_service import login_service
 
 
 class LoginView:
-    def __init__(self, root, login_successful, register_user):
+    def __init__(self, root, login_successful, register_user, init_user):
         self._root = root
 
         self._login_successful = login_successful
         self._register = register_user
+        self._init_user = init_user
 
         self._frame = ttk.Frame(root)
         self._create_widgets()
@@ -48,7 +47,7 @@ class LoginView:
 
         if login_service._check_user(username, password):
             self._user_log_in_id = login_service.get_login_user_id(username, password)
-            balance_service.init_user(self._user_log_in_id)
+            self._init_user(self._user_log_in_id)
             self._login_successful(self._user_log_in_id)
         else:
             self._show_error("Invalid username or password")
