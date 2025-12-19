@@ -64,6 +64,38 @@ class ExpensesView:
             master=self._frame, text="Enter", command=self._add_expense
         )
 
+        self._edit_id = None
+        self._edit_frame = ttk.Frame(master=self._frame)
+        self._edit_label = ttk.Label(
+            master=self._edit_frame, text="Edit expense", font=(20)
+        )
+        self._edit_desc_label = ttk.Label(
+            master=self._edit_frame, text="product or service", font=(12)
+        )
+        self._edit_amt_label = ttk.Label(
+            master=self._edit_frame, text="price €", font=(12)
+        )
+        self._edit_desc_entry = ttk.Entry(master=self._edit_frame)
+        self._edit_amt_entry = ttk.Entry(master=self._edit_frame)
+        self._edit_save_button = ttk.Button(
+            master=self._edit_frame, text="Save", command=self._save_edit
+        )
+        self._edit_cancel_button = ttk.Button(
+            master=self._edit_frame, text="Cancel", command=self._cancel_edit
+        )
+
+        self._edit_label.grid(
+            row=0, column=0, columnspan=2, sticky=constants.W, padx=5, pady=5
+        )
+        self._edit_desc_label.grid(row=1, column=0, sticky=constants.W, padx=5, pady=2)
+        self._edit_desc_entry.grid(row=1, column=1, sticky=constants.W, padx=5, pady=2)
+        self._edit_amt_label.grid(row=2, column=0, sticky=constants.W, padx=5, pady=2)
+        self._edit_amt_entry.grid(row=2, column=1, sticky=constants.W, padx=5, pady=2)
+        self._edit_save_button.grid(row=3, column=0, sticky=constants.W, padx=5, pady=5)
+        self._edit_cancel_button.grid(
+            row=3, column=1, sticky=constants.W, padx=5, pady=5
+        )
+
     def _layout_widgets(self):
         self._expenses.grid(row=1, column=0, sticky=constants.W, padx=10)
         self._expenses_amount.grid(row=1, column=1, sticky=constants.W, padx=10)
@@ -100,6 +132,60 @@ class ExpensesView:
             self._update_balance()
             self._show_expenses()
 
+    def _open_edit(self, expense_id, description, amount):
+        """Open inline edit UI populated with the expense data."""
+        if self._user_id is None:
+            return
+
+        self._edit_id = expense_id
+        try:
+            self._edit_desc_entry.delete(0, "end")
+            self._edit_desc_entry.insert(0, str(description))
+            self._edit_amt_entry.delete(0, "end")
+            self._edit_amt_entry.insert(0, str(amount))
+        except Exception:
+            pass
+
+        try:
+            self._edit_frame.grid(row=8, column=0, sticky=constants.W, padx=10, pady=5)
+        except Exception:
+            pass
+
+    def _save_edit(self):
+        """Save the edited expense, adjust balances and refresh the view."""
+        if self._user_id is None or self._edit_id is None:
+            return
+
+        new_desc = self._edit_desc_entry.get()
+        new_amt = self._edit_amt_entry.get()
+
+        success = False
+        try:
+            success = self._budget_service.edit_expense(
+                self._edit_id, self._user_id, new_desc, new_amt
+            )
+        except Exception:
+            success = False
+
+        if success:
+            new_amount = self._budget_service.get_expenses_amount(self._user_id)
+            self._expenses_var.set(new_amount)
+            self._update_balance()
+            self._edit_id = None
+            try:
+                self._edit_frame.grid_remove()
+            except Exception:
+                pass
+            self._show_expenses()
+
+    def _cancel_edit(self):
+        """Cancel the edit and hide the edit UI."""
+        self._edit_id = None
+        try:
+            self._edit_frame.grid_remove()
+        except Exception:
+            pass
+
     def _show_expenses(self):
         if (
             not hasattr(self, "_expenses_view")
@@ -134,12 +220,21 @@ class ExpensesView:
             price.grid(row=i, column=1, sticky=constants.W, padx=10, pady=5)
 
             if expense_id is not None:
+                edit_btn = ttk.Button(
+                    master=self._expenses_view,
+                    text="Edit",
+                    command=lambda eid=expense_id,
+                    desc=product_name,
+                    amt=product_price: self._open_edit(eid, desc, amt),
+                )
+                edit_btn.grid(row=i, column=2, sticky=constants.W, padx=10, pady=5)
+
                 delete_btn = ttk.Button(
                     master=self._expenses_view,
                     text="Delete",
                     command=lambda eid=expense_id: self._delete_expense(eid),
                 )
-                delete_btn.grid(row=i, column=2, sticky=constants.W, padx=10, pady=5)
+                delete_btn.grid(row=i, column=3, sticky=constants.W, padx=10, pady=5)
 
         self._expenses_view.grid(row=7, column=0, sticky=constants.W, padx=10)
 

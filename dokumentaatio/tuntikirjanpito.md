@@ -16,4 +16,5 @@
 |       | 1       | Testaamista |
 |10.12  | 1       | refaktorointia |
 |11.12  | 2       | refaktorointia |
+|19.12  | 4       | Toiminnallisuutta |
 | yht.  | 37      |
