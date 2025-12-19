@@ -60,7 +60,8 @@ Sovelluksella on aluksi vain normaalikäyttäjiä, myöhemmin saatetaan lisätä
     • Käyttäjä voi kirjautua sisään
     - Käyttäjä voi kirjautua ulos
     • Käyttäjä voi lisätä omia tuloja ja menoja
-    • Käyttäjä voi muokata ja poistaa itse lisäämiään tapahtumia
+    • Käyttäjä voi muokata tapahtumia
+    - Käyttäjä voi poistaa tapahtumia
     • Sovellus luokittelee menot eri kategorioihin
     • Sovellus tekee tuloista ja menoista yhteenvedon
     • Sovellus näyttää käyttäjän nykyisen saldon 
@@ -71,4 +72,4 @@ Sovelluksella on aluksi vain normaalikäyttäjiä, myöhemmin saatetaan lisätä
     • Budjetin asettaminen kuukausi- tai kategoriatasolla
     • Ilmoitus tai varoitus, jos budjetti ylittyy
     • Hakutoiminto tapahtumille
-    • Tapahtumien suodatus 
+    • Tapahtumien suodatus

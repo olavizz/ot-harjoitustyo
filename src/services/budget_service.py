@@ -153,7 +153,7 @@ class BudgetService:
 
         try:
             cursor.execute(
-                "SELECT description, amount FROM expenses WHERE user_id = ?",
+                "SELECT id, description, amount FROM expenses WHERE user_id = ?",
                 (user_id,),
             )
             rows = cursor.fetchall()
@@ -164,6 +164,53 @@ class BudgetService:
         conn.close()
 
         return rows
+
+    def delete_expense(self, expense_id, user_id):
+        """Delete an expense by id for the given user and refund the amount to balance."""
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute(
+                "SELECT amount FROM expenses WHERE id = ? AND user_id = ?",
+                (expense_id, user_id),
+            )
+            row = cursor.fetchone()
+            if not row:
+                conn.close()
+                return False
+
+            amount = row[0]
+
+            cursor.execute(
+                "DELETE FROM expenses WHERE id = ? AND user_id = ?",
+                (expense_id, user_id),
+            )
+
+            current_balance = self._get_balance(user_id)
+            try:
+                new_balance = current_balance + int(amount)
+            except Exception:
+                new_balance = current_balance + float(amount)
+
+            try:
+                cursor.execute(
+                    "UPDATE balances SET balance = ? WHERE user_id = ?",
+                    (new_balance, user_id),
+                )
+            except Exception as e:
+                print("Error updating balance after deleting expense:", e)
+
+            conn.commit()
+            conn.close()
+
+            self._cached_balance[user_id] = int(new_balance)
+
+            return True
+        except Exception as e:
+            print("Error deleting expense:", e)
+            conn.close()
+            return False
 
 
 budget_service = BudgetService()

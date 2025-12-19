@@ -96,7 +96,7 @@ class BalanceView:
 
         amount = self._balance_entry.get()
         if not amount or not amount.isdigit():
-            return  # TODO: ilmoita virhe
+            return
 
         new_balance, new_earnings = self._service.increase_balance(
             amount, self._user_id
@@ -111,8 +111,7 @@ class BalanceView:
 
         amount = self._balance_entry.get()
         if not amount or not amount.isdigit():
-            return  # TODO: ilmoita virhe
-
+            return
         new_balance = self._service.decrease_balance(amount, self._user_id)
         self._balance_var.set(str(new_balance))
 

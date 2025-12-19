@@ -88,6 +88,18 @@ class ExpensesView:
         self._update_balance()
         self._show_expenses()
 
+    def _delete_expense(self, expense_id):
+        """Delete an expense and refresh the view & balance."""
+        if self._user_id is None:
+            return
+
+        deleted = self._budget_service.delete_expense(expense_id, self._user_id)
+        if deleted:
+            new_amount = self._budget_service.get_expenses_amount(self._user_id)
+            self._expenses_var.set(new_amount)
+            self._update_balance()
+            self._show_expenses()
+
     def _show_expenses(self):
         if (
             not hasattr(self, "_expenses_view")
@@ -102,7 +114,17 @@ class ExpensesView:
         else:
             expenses_list = self._budget_service.get_expenses(self._user_id)
 
-        for i, (product_name, product_price) in enumerate(expenses_list):
+        for i, row in enumerate(expenses_list):
+            if len(row) == 3:
+                expense_id, product_name, product_price = row
+            elif len(row) == 2:
+                expense_id = None
+                product_name, product_price = row
+            else:
+                expense_id = None
+                product_name = str(row)
+                product_price = ""
+
             product = ttk.Label(
                 master=self._expenses_view, text=product_name, font=(20)
             )
@@ -110,6 +132,14 @@ class ExpensesView:
 
             price = ttk.Label(master=self._expenses_view, text=product_price, font=(20))
             price.grid(row=i, column=1, sticky=constants.W, padx=10, pady=5)
+
+            if expense_id is not None:
+                delete_btn = ttk.Button(
+                    master=self._expenses_view,
+                    text="Delete",
+                    command=lambda eid=expense_id: self._delete_expense(eid),
+                )
+                delete_btn.grid(row=i, column=2, sticky=constants.W, padx=10, pady=5)
 
         self._expenses_view.grid(row=7, column=0, sticky=constants.W, padx=10)
 
