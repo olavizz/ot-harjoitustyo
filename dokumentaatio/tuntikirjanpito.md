@@ -14,4 +14,6 @@
 |2.12   | 3       | Tietokannan yhdistäminen, toiminnallisuutta |
 |9.12   | 6       | Tietokannan yhdistämistä, refaktorointia |
 |       | 1       | Testaamista |
-| yht.  | 34      |
+|10.12  | 1       | refaktorointia |
+|11.12  | 2       | refaktorointia |
+| yht.  | 37      |
