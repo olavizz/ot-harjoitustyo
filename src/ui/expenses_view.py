@@ -201,15 +201,7 @@ class ExpensesView:
             expenses_list = self._budget_service.get_expenses(self._user_id)
 
         for i, row in enumerate(expenses_list):
-            if len(row) == 3:
-                expense_id, product_name, product_price = row
-            elif len(row) == 2:
-                expense_id = None
-                product_name, product_price = row
-            else:
-                expense_id = None
-                product_name = str(row)
-                product_price = ""
+            expense_id, product_name, product_price = row
 
             product = ttk.Label(
                 master=self._expenses_view, text=product_name, font=(20)

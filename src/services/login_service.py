@@ -1,4 +1,5 @@
 import sqlite3
+
 DB_FILE = "src/budget.db"
 
 
@@ -7,18 +8,19 @@ def get_connection():
     conn.execute("PRAGMA foreign_keys = ON;")
     return conn
 
+
 class LoginService:
     def __init__(self):
         self._username = "pekka"
         self._password = "123456"
-    
+
     def get_login_user_id(self, username, password):
         conn = get_connection()
         cursor = conn.cursor()
         try:
             cursor.execute(
                 "SELECT * FROM users WHERE username = ? AND password = ?",
-                (username, password)
+                (username, password),
             )
             user = cursor.fetchone()
             print(user)
@@ -27,14 +29,14 @@ class LoginService:
             print("User not found")
         conn.close()
         return user[0]
-    
+
     def _check_user(self, username, password):
         conn = get_connection()
         cursor = conn.cursor()
         try:
             cursor.execute(
                 "SELECT * FROM users WHERE username = ? AND password = ?",
-                (username, password)
+                (username, password),
             )
             user = cursor.fetchone()
             print(user)
@@ -50,5 +52,6 @@ class LoginService:
             return True
         else:
             return False
-    
+
+
 login_service = LoginService()
