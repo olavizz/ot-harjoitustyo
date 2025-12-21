@@ -1,7 +1,9 @@
+import os
 import sqlite3
 import unittest
+from configparser import ParsingError
 
-from services.login_service import LoginService
+from services.budget_service import BudgetService
 
 DB_FILE = "src/budget.db"
 
@@ -13,11 +15,11 @@ def get_connection():
 
 
 test_user_id = 222
-test_username = "pasi"
-test_password = "kuikka"
+test_username = "Kalle"
+test_password = "1234"
 
 
-class TestLoginService(unittest.TestCase):
+class TestBalanceService(unittest.TestCase):
     def setUp(self):
         self.conn = get_connection()
         self.cursor = self.conn.cursor()
@@ -41,8 +43,11 @@ class TestLoginService(unittest.TestCase):
         self.conn.commit()
         self.conn.close()
 
-        self.login = LoginService()
+        self.balance = BudgetService()
 
-    def test_login_with_correct_username_and_password(self):
-        login = self.login._check_user("pasi", "kuikka")
-        self.assertEqual(login, True)
+    def test_balance_is_zero_at_start(self):
+        self.assertEqual(self.balance._get_balance(test_user_id), 0)
+
+    def test_balance_is_increased_right(self):
+        self.balance.increase_balance(1000, test_user_id)
+        self.assertEqual(self.balance._get_balance(test_user_id), 1000)
