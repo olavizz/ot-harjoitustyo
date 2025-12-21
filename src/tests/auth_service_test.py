@@ -41,8 +41,17 @@ class TestLoginService(unittest.TestCase):
         self.conn.commit()
         self.conn.close()
 
-        self.login = AuthService()
+        self.auth_service = AuthService()
 
     def test_login_with_correct_username_and_password(self):
-        login = self.login._check_user("Kalle", "1234")
+        login = self.auth_service._check_user("Kalle", "1234")
         self.assertEqual(login, True)
+
+    def test_registering_user_with_unique_username_and_password(self):
+        self.auth_service.register_user("Pekka", "9999")
+        success = self.auth_service._check_user("Pekka", "9999")
+        self.assertEqual(success, True)
+
+    def test_get_correct_user_id(self):
+        user_id = self.auth_service.get_login_user_id("Kalle", "1234")
+        self.assertEqual(user_id, 222)
