@@ -8,9 +8,25 @@
 - Lisätty BalanceService-luokka, joka hoitaa sovelluslogiikkaa
 - Lisätty ExpensesService-luokka, joka hoitaa sovelluslogiikkaa
 - Testattu, että BalanceService-luokka lisää saldoa oikein
+
+## viikko4
+
 - Lisätty LoginVew-luokka, joka näyttää sisäänkirjautumis sivun
-- Lisätty LoginService-luokka, joka käsittelee käyttäjän sisäänkirjautumisen.
+- Lisätty LoginService-luokka, joka käsittelee käyttäjän sisäänkirjautumisen. Tällä hetkellä toimii vain yhdellä      käyttäjällä (username: pekka, password: 123456)
 - Testattu melkein kokonaan kaikkien luokkien toiminnallisuutta
+
+## viikko5
+
 - Käyttäjä pystyy rekisteröitymään ja tiedot tallentuvat tietokantaan
 - Käyttäjä pystyy kirjautumaan sisään rekisteröidyllä käyttäjällä
 - Käyttäjä pystyy kirjautumaan ulos
+
+## viikko6
+
+- Tietokannan käyttöönotto tiedon tallennukseen ja hakemiseen
+- Testejä kirjoiteltu
+
+## viikko7
+
+- Käyttäjä pystyy poistamaan kuluja
+- Käyttäjä pystyy muokkaamaan kuluja
