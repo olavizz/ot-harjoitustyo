@@ -8,5 +8,7 @@ Testauskattavuus on yli 60% ja se on mitattu `coverage`-työkalulla, ja kattavuu
 ```bash
 poetry run invoke coverage-report
 ```
+<img width="801" height="370" alt="Screenshot from 2025-12-21 23-14-09" src="https://github.com/user-attachments/assets/93995536-da6c-4f60-a139-418ce7996e6c" />
+
 
 Testaamatta ovat jääneet ui-luokat sekä tietokannan luonnista vastuussa oleva db_helper.py
