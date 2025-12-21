@@ -1,7 +1,5 @@
 from tkinter import StringVar, constants, ttk
 
-from services.budget_service import budget_service
-
 
 class BalanceView:
     def __init__(self, root, budget_service, start_callback):
@@ -9,7 +7,8 @@ class BalanceView:
         self._user_id = None
         self._balance_var = StringVar()
         self._total_earnings_var = StringVar()
-        self._frame = None
+        # create the frame immediately so linters know this attribute is a Frame
+        self._frame = ttk.Frame(master=self._root)
 
         self.login_page = start_callback
         self._service = budget_service
@@ -39,18 +38,21 @@ class BalanceView:
         self._update_vars()
 
     def _initialize(self):
-        self._frame = ttk.Frame(master=self._root)
+        # frame already created in __init__, just build the widgets
         self._create_widgets()
         self._layout_widgets()
 
     def _create_widgets(self):
+        # use explicit font tuples (family, size) to satisfy linters
         self._total_earnings_label = ttk.Label(
-            master=self._frame, text="total earnings", font=(20)
+            master=self._frame, text="total earnings", font=("Arial", 12)
         )
         self._total_earnings_amount = ttk.Label(
             master=self._frame, textvariable=self._total_earnings_var
         )
-        self._balance_label = ttk.Label(master=self._frame, text="balance", font=(20))
+        self._balance_label = ttk.Label(
+            master=self._frame, text="balance", font=("Arial", 12)
+        )
 
         self._balance_entry = ttk.Entry(master=self._frame)
 

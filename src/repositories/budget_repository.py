@@ -10,60 +10,6 @@ class BudgetRepository:
         conn.execute("PRAGMA foreign_keys = ON;")
         return conn
 
-    def create_user(self, username: str, password: str):
-        """Insert a new user. Returns created user's id or None on failure/duplicate."""
-        conn = self.get_connection()
-        cursor = conn.cursor()
-        try:
-            cursor.execute(
-                "INSERT INTO users (username, password) VALUES (?, ?)",
-                (username, password),
-            )
-            user_id = cursor.lastrowid
-            conn.commit()
-            return user_id
-        except sqlite3.IntegrityError:
-            # username already exists
-            return None
-        except Exception as e:
-            print("Error creating user:", e)
-            return None
-        finally:
-            conn.close()
-
-    def get_user_by_id(self, user_id: int):
-        """Return (id, username, password) or None."""
-        conn = self.get_connection()
-        cursor = conn.cursor()
-        try:
-            cursor.execute(
-                "SELECT id, username, password FROM users WHERE id = ?", (user_id,)
-            )
-            row = cursor.fetchone()
-            return row
-        except Exception as e:
-            print("Error fetching user by id:", e)
-            return None
-        finally:
-            conn.close()
-
-    def get_user_by_username(self, username: str):
-        """Return (id, username, password) or None."""
-        conn = self.get_connection()
-        cursor = conn.cursor()
-        try:
-            cursor.execute(
-                "SELECT id, username, password FROM users WHERE username = ?",
-                (username,),
-            )
-            row = cursor.fetchone()
-            return row
-        except Exception as e:
-            print("Error fetching user by username:", e)
-            return None
-        finally:
-            conn.close()
-
     def get_balance(self, user_id: int):
         """Return the user's balance as float. Returns 0.0 if missing."""
         conn = self.get_connection()

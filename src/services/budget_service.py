@@ -50,8 +50,6 @@ class BudgetService:
         return self._get_balance(user_id)
 
     def _get_total_earnings(self, user_id):
-        if user_id in self._cached_earnings:
-            return self._cached_earnings[user_id]
         earnings = repo.get_total_earnings(user_id)
         self._cached_earnings[user_id] = float(earnings)
         return float(earnings)

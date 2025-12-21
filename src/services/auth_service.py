@@ -18,9 +18,6 @@ class AuthService:
         if auth_repository.username_exists(username):
             print("user already in database")
             return False
-        if auth_repository.username_exists(username):
-            print("user already in database")
-            return False
         success = auth_repository.register_user(username, password)
         if success:
             print("user added")

@@ -1,6 +1,7 @@
 from tkinter import Tk, constants
 
-import db_helper
+# Initialize database tables (side-effect)
+import db_helper  # ensures budget.db exists and tables are created
 from services.budget_service import budget_service
 from ui.balance_view import BalanceView
 from ui.expenses_view import ExpensesView
@@ -63,12 +64,11 @@ class UI:
         for v in self._current_view_list:
             v.hide()
 
-        self._home_view._frame.grid(
-            row=0, column=0, sticky=constants.W, padx=10, pady=10
-        )
-        self._expenses_view._frame.grid(
-            row=1, column=0, sticky=constants.W, padx=10, pady=10
-        )
+        # Use the public view API to show views instead of accessing internal frames.
+        # This avoids touching internal attributes like `_frame` which may not be
+        # present or may change in future implementations.
+        self._home_view.show()
+        self._expenses_view.show()
 
         self._current_view_list = [self._home_view, self._expenses_view]
 

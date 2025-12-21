@@ -31,9 +31,6 @@ class RegisterView:
         )
         self.back_button.grid(row=3, column=2)
 
-    def show(self):
-        self._frame.grid(row=0, column=0, sticky=constants.W)
-
     def register_user(self):
         username = self.username_entry.get().strip()
         password = self.password_entry.get().strip()
@@ -45,7 +42,8 @@ class RegisterView:
         auth_service.register_user(username, password)
 
     def show(self):
-        self._frame.grid()
+        """Show the register frame in the UI."""
+        self._frame.grid(row=0, column=0, sticky=constants.W)
 
     def hide(self):
         self._frame.grid_remove()

@@ -7,7 +7,8 @@ class ExpensesView:
         self._budget_service = budget_service
         self._user_id = None
         self._expenses_var = StringVar()
-        self._frame = None
+        # create the frame immediately so static analyzers know this attribute exists
+        self._frame = ttk.Frame(master=self._root)
         self._update_balance = update_balance
 
         self._initialize()
@@ -36,26 +37,30 @@ class ExpensesView:
         self._expenses_var.set(amount)
 
     def _initialize(self):
-        self._frame = ttk.Frame(master=self._root)
+        # frame already created in __init__, just build widgets
         self._create_widgets()
         self._layout_widgets()
 
     def _create_widgets(self):
         self._expenses_view = ttk.Frame(master=self._frame)
 
-        self._expenses = ttk.Label(master=self._frame, text="expenses", font=(20))
+        self._expenses = ttk.Label(
+            master=self._frame, text="expenses", font=("Arial", 12)
+        )
         self._expenses_amount = ttk.Label(
             master=self._frame, textvariable=self._expenses_var
         )
 
         self._new_expense = ttk.Label(
-            master=self._frame, text="Add a new expense", font=(30)
+            master=self._frame, text="Add a new expense", font=("Arial", 14)
         )
 
         self._expense_name = ttk.Label(
-            master=self._frame, text="product or service", font=(20)
+            master=self._frame, text="product or service", font=("Arial", 12)
         )
-        self._expense_price = ttk.Label(master=self._frame, text="price €", font=(20))
+        self._expense_price = ttk.Label(
+            master=self._frame, text="price €", font=("Arial", 12)
+        )
 
         self._expense_ps_entry = ttk.Entry(master=self._frame)
         self._expense_price_entry = ttk.Entry(master=self._frame)
@@ -67,13 +72,13 @@ class ExpensesView:
         self._edit_id = None
         self._edit_frame = ttk.Frame(master=self._frame)
         self._edit_label = ttk.Label(
-            master=self._edit_frame, text="Edit expense", font=(20)
+            master=self._edit_frame, text="Edit expense", font=("Arial", 12)
         )
         self._edit_desc_label = ttk.Label(
-            master=self._edit_frame, text="product or service", font=(12)
+            master=self._edit_frame, text="product or service", font=("Arial", 10)
         )
         self._edit_amt_label = ttk.Label(
-            master=self._edit_frame, text="price €", font=(12)
+            master=self._edit_frame, text="price €", font=("Arial", 10)
         )
         self._edit_desc_entry = ttk.Entry(master=self._edit_frame)
         self._edit_amt_entry = ttk.Entry(master=self._edit_frame)
@@ -204,11 +209,13 @@ class ExpensesView:
             expense_id, product_name, product_price = row
 
             product = ttk.Label(
-                master=self._expenses_view, text=product_name, font=(20)
+                master=self._expenses_view, text=product_name, font=("Arial", 12)
             )
             product.grid(row=i, column=0, sticky=constants.W, padx=10, pady=5)
 
-            price = ttk.Label(master=self._expenses_view, text=product_price, font=(20))
+            price = ttk.Label(
+                master=self._expenses_view, text=product_price, font=("Arial", 12)
+            )
             price.grid(row=i, column=1, sticky=constants.W, padx=10, pady=5)
 
             if expense_id is not None:
