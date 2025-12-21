@@ -1,4 +1,3 @@
-import os
 import sqlite3
 import unittest
 
@@ -38,7 +37,6 @@ class TestBalanceService(unittest.TestCase):
             )
             print("User added")
         except sqlite3.Error as exc:
-            # be explicit about the exception type to avoid bare except
             print("Error in test setup", exc)
 
         self.conn.commit()

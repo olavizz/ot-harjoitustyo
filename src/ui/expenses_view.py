@@ -14,7 +14,13 @@ class ExpensesView:
         self._initialize()
 
     def pack(self):
-        self._frame.grid(row=0, column=0)
+        """Compatibility: pack is an alias for show() to display the expenses view."""
+        self.show()
+
+    def show(self):
+        """Show the expenses view frame (placed below the main balance view)."""
+        # Place the outer frame into the application grid so its contents become visible
+        self._frame.grid(row=1, column=0, sticky=constants.W, padx=10, pady=10)
 
     def destroy(self):
         self._frame.destroy()
