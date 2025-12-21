@@ -1,6 +1,8 @@
 import sqlite3
 
-conn = sqlite3.connect("src/budget.db")
+DB_FILE = "src/budget.db"
+
+conn = sqlite3.connect(DB_FILE)
 cursor = conn.cursor()
 
 cursor.execute("""

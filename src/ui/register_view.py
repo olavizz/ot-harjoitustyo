@@ -1,13 +1,6 @@
-import sqlite3
 from tkinter import constants, ttk
 
-DB_FILE = "src/budget.db"
-
-
-def get_connection():
-    conn = sqlite3.connect(DB_FILE)
-    conn.execute("PRAGMA foreign_keys = ON;")
-    return conn
+from services.auth_service import auth_service
 
 
 class RegisterView:
@@ -49,22 +42,7 @@ class RegisterView:
             print("Username or password error")
             return
 
-        conn = get_connection()
-        cursor = conn.cursor()
-        try:
-            cursor.execute(
-                "INSERT INTO users (username, password) VALUES (?, ?)",
-                (username, password),
-            )
-            user_id = cursor.lastrowid
-            cursor.execute(
-                "INSERT INTO balances (user_id, balance) VALUES (?, ?)", (user_id, 0)
-            )
-            print("User added")
-        except:
-            print("Error")
-        conn.commit()
-        conn.close()
+        auth_service.register_user(username, password)
 
     def show(self):
         self._frame.grid()

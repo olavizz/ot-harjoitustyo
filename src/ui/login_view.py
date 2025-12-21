@@ -1,6 +1,6 @@
 from tkinter import StringVar, constants, ttk
 
-from services.login_service import login_service
+from services.auth_service import auth_service
 
 
 class LoginView:
@@ -45,8 +45,8 @@ class LoginView:
         password = self._password_entry.get()
         print(type(username))
 
-        if login_service._check_user(username, password):
-            self._user_log_in_id = login_service.get_login_user_id(username, password)
+        if auth_service._check_user(username, password):
+            self._user_log_in_id = auth_service.get_login_user_id(username, password)
             self._init_user(self._user_log_in_id)
             self._login_successful(self._user_log_in_id)
         else:

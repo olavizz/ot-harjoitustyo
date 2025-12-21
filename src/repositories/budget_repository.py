@@ -11,9 +11,7 @@ class BudgetRepository:
         return conn
 
     def create_user(self, username: str, password: str):
-        """
-        Insert a new user. Returns created user's id or None on failure/duplicate.
-        """
+        """Insert a new user. Returns created user's id or None on failure/duplicate."""
         conn = self.get_connection()
         cursor = conn.cursor()
         try:
@@ -119,7 +117,7 @@ class BudgetRepository:
             conn.close()
 
     def update_balance(self, user_id: int, new_balance: float):
-        """Set new balance value for user (does not touch total_earnings)."""
+        """Set new balance value for user."""
         conn = self.get_connection()
         cursor = conn.cursor()
         try:
@@ -153,9 +151,7 @@ class BudgetRepository:
             conn.close()
 
     def add_expense(self, user_id: int, description: str, amount: float):
-        """
-        Add an expense row. Returns the created expense id or None on failure.
-        """
+        """Add an expense row. Returns the created expense id or None on failure."""
         conn = self.get_connection()
         cursor = conn.cursor()
         try:
@@ -173,10 +169,7 @@ class BudgetRepository:
             conn.close()
 
     def get_expenses_by_user(self, user_id: int):
-        """
-        Return list of (id, description, amount) for a given user.
-        Description may be None.
-        """
+        """Return list of (id, description, amount) for a given user."""
         conn = self.get_connection()
         cursor = conn.cursor()
         try:
@@ -224,9 +217,7 @@ class BudgetRepository:
             conn.close()
 
     def delete_expense(self, expense_id: int):
-        """
-        Delete an expense by id. Returns True if a row was deleted, False otherwise.
-        """
+        """Delete an expense by id. Returns True if a row was deleted, False otherwise."""
         conn = self.get_connection()
         cursor = conn.cursor()
         try:
@@ -258,7 +249,7 @@ class BudgetRepository:
             conn.close()
 
     def get_total_expenses_amount(self, user_id: int):
-        """Return SUM(amount) for a user's expenses as float."""
+        """Return amount for a user's expenses as float."""
         conn = self.get_connection()
         cursor = conn.cursor()
         try:

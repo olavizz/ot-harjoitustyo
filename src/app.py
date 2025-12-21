@@ -1,5 +1,6 @@
 from tkinter import Tk, constants
 
+import db_helper
 from services.budget_service import budget_service
 from ui.balance_view import BalanceView
 from ui.expenses_view import ExpensesView
